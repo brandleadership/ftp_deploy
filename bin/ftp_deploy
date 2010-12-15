@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler'
+require 'ftp_deploy/cli'
+
+begin
+  FtpDeploy::CLI.start
+rescue Interrupt => e
+  puts 'Bye bye'
+end
