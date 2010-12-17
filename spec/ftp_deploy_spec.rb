@@ -25,4 +25,15 @@ describe FtpDeploy::Base do
   it 'should have an empty default user' do
     @ftp_deploy.config[:user].should == nil
   end
+  
+  it 'should load a config hash from a config file with the name ftp_deploy.yml' do
+    FtpDeploy.load_config
+  end
+  
+  it 'should load the staging environment' do
+    FtpDeploy.env :staging do
+      config[:host].should == 'test'
+    end
+  end
+  
 end

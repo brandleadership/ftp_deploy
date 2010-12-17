@@ -4,7 +4,8 @@ module FtpDeploy
   
   class Base
     
-    def initialize &block
+    def initialize(cfg = nil, &block)
+      cfg.each_pair{ |k,v| config[k] = v } unless cfg.nil?
       self.instance_eval &block if block_given?
     end
     
@@ -58,17 +59,16 @@ module FtpDeploy
     end
     
     def upload element
-        
-        local_element = element
-        remote_element = element.gsub(local_base_dir, remote_base_dir)
-        
-        puts "Uploading file '#{local_element}' to '#{remote_element}'" if config[:verbose]
-        
-        if FileTest.directory?(local_element)
-          @ftp.mkdir(remote_element)
-        else
-          @ftp.put element, remote_element
-        end
+      local_element = element
+      remote_element = element.gsub(local_base_dir, remote_base_dir)
+      
+      puts "Uploading file '#{local_element}' to '#{remote_element}'" if config[:verbose]
+      
+      if FileTest.directory?(local_element)
+        @ftp.mkdir(remote_element)
+      else
+        @ftp.put element, remote_element
+      end
     end
     
     def local_base_dir

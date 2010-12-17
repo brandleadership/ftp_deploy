@@ -1,0 +1,4 @@
+staging:
+  host: 'test'
+  user: '3123'
+  password: '23123'

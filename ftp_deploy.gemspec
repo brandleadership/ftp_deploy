@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "ftp_deploy"
   s.version     = FtpDeploy::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Immanuel Häussermann"]
+  s.email       = ["immanuel.haeussermann@screenconcept.ch"]
   s.homepage    = "http://rubygems.org/gems/ftp_deploy"
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Simple deployment via FTP}
+  s.description = %q{Many users have sites hosted on shared hosts, where SSH is not available. Therefore, you can not use the wonderful capistrano for deployment. ftp_deploy lets you do static ftp deployment the easy way.}
 
   s.rubyforge_project = "ftp_deploy"
 
