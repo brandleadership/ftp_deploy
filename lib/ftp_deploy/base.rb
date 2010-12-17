@@ -35,16 +35,31 @@ module FtpDeploy
     end
     
     def upload_release!
-      remove_all_below(remote_base_dir)
+      #remove_all_below(remote_base_dir)
+      
+      release = Time.new.strftime "%Y-%d-%m_%H-%M-%S"
+      release_dir = File.join(remote_base_dir, release)
+      
+      @ftp.mkdir release_dir
       
       Dir.glob("#{local_base_dir}/**/**").sort.each do |el|
-        upload el
+        upload el, release_dir
       end
+      
+      htaccess_file = File.join(local_base_dir, '.htaccess')
+      open(htaccess_file, 'w') do |f|
+        f << "Options +FollowSymLinks
+              RewriteEngine On
+              RewriteCond %{ENV:REDIRECT_STATUS} ^$
+              RewriteRule .* #{release_dir}%{REQUEST_URI} [QSA,L]"
+      end
+        
+      upload(htaccess_file, remote_base_dir)
     end
     
     def remove_all_below dir
       @ftp.chdir(dir)
-      dircontent = @ftp.list("-A1")
+      dircontent = @ftp.list('-A1')
       dircontent.each do |file|
         filepath = File.join(dir, file)
         begin
@@ -58,9 +73,9 @@ module FtpDeploy
       end
     end
     
-    def upload element
+    def upload element, release_dir
       local_element = element
-      remote_element = element.gsub(local_base_dir, remote_base_dir)
+      remote_element = element.gsub(local_base_dir, release_dir)
       
       puts "Uploading file '#{local_element}' to '#{remote_element}'" if config[:verbose]
       
