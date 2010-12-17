@@ -9,29 +9,18 @@ run "bundle install"
 
 Example:
 
-require 'rubygems'
-require 'bundler'
-Bundler.setup
+ftp_deploy deploy staging
+ftp_deploy deploy production
 
-require 'ftp_deploy'
+Define your staging configs inside a file called 'ftp_deploy.yml'
 
-FtpDeploy::Base.new do
+staging:
+  host: 'test.host.com'
+  user: 'root'
+  password; 'root'
   
-  config do
-    set :user, 'designer'
-    set :host, '192.168.67.106'
-    set :password, 'stuff123'
-    set :remote_base_dir, './Sites/testing'
-    set :base_dir, './upload'
-  end
-    
-  connect! do |ftp|
-    ftp.upload_release!
-  end
-end
 
 TODO:
 
-1. CLI interface
-2. Woraround for Net/FTP not being able to move directories, therefore longer downtime between deploys. Workaround: write .htaccess on deploy and rewrite the DOCUMENT_ROOT
-3. Staticmatic Integration
+1. Woraround for Net/FTP not being able to move directories, therefore longer downtime between deploys. Workaround: write .htaccess on deploy and rewrite the DOCUMENT_ROOT
+2. Staticmatic Integration
