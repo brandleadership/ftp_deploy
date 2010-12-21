@@ -1,4 +1,4 @@
-Install_
+Install
 
 gem "ftp_deploy"
 
