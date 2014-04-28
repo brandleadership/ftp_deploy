@@ -1,6 +1,8 @@
 require 'ftp_deploy/base'
 require 'ftp_deploy/configuration'
 require 'pp'
+require 'yaml'
+require 'erb'
 
 module FtpDeploy
   
@@ -9,11 +11,15 @@ module FtpDeploy
   end
   
   def self.load_config file = nil
-    file ||= Dir['**/ftp_deploy.yml'].first || ''
+    file ||= Dir['**/ftp_deploy{.yml,.yml.erb}'].first || ''
     config = {}
     
     if File.exists?(file)
-      config = YAML.load_file(file)
+      if file =~ /.erb$/
+        config = YAML.load(ERB.new(File.read(file)).result)
+      else
+        config = YAML.load_file(file)
+      end
     end
     
     config
