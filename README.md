@@ -10,7 +10,8 @@ run
 
 ## Setup a config
 
-Define your staging configs inside a file called 'ftp_deploy.yml'
+Define your staging configs inside a file called 'ftp_deploy.yml' or
+'ftp_deploy.yml.erb'
 
     staging:
       host: 'test.host.com'
