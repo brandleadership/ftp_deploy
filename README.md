@@ -1,25 +1,28 @@
-Install
+# Install
 
-gem "ftp_deploy"
+Add to your Gemfile:
 
-run "bundle install"
+    gem "ftp_deploy"
 
+run
 
-Setup a config:
+    bundle install
+
+## Setup a config
+
 Define your staging configs inside a file called 'ftp_deploy.yml'
 
-staging:
-  host: 'test.host.com'
-  user: 'root'
-  password: 'root'
-  base_dir: './site'
-  remote_base_dir: '/var/www/test.host.com' // optional, defaults to user home
+    staging:
+      host: 'test.host.com'
+      user: 'root'
+      password: 'root'
+      base_dir: './site'
+      remote_base_dir: '/var/www/test.host.com' // optional, defaults to user home
 
 Example:
 
-ftp_deploy deploy staging
-ftp_deploy deploy production
-
+    ftp_deploy deploy staging
+    ftp_deploy deploy production
 
 TODO:
 - rollbacks
