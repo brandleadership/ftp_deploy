@@ -18,7 +18,7 @@ Define your staging configs inside a file called 'ftp_deploy.yml' or
       user: 'root'
       password: 'root'
       base_dir: './site'
-      remote_base_dir: '/var/www/test.host.com' // optional, defaults to user home
+      remote_base_dir: '/var/www/test.host.com' # optional, defaults to user home
 
 Example:
 
