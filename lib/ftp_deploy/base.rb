@@ -46,12 +46,18 @@ module FtpDeploy
         upload el, release_dir
       end
       
+      if rb = config[:rewrite_base]
+        @rewrite_base = rb + '/' + release
+      else
+        @rewrite_base = release_dir.to_s
+      end
+
       htaccess_file = File.join(local_base_dir, '.htaccess')
       open(htaccess_file, 'w') do |f|
         f << "Options +FollowSymLinks
               RewriteEngine On
               RewriteCond %{ENV:REDIRECT_STATUS} ^$
-              RewriteRule .* #{release_dir}%{REQUEST_URI} [QSA,L]"
+              RewriteRule .* #{@rewrite_base}%{REQUEST_URI} [QSA,L]"
       end
         
       upload(htaccess_file, remote_base_dir)
